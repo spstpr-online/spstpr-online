@@ -7,6 +7,7 @@
 <title>ប្រព័ន្ធប្រឡងអនឡាញ — សាលារៀនសុវណ្ណភូមិ</title>
 
 <script src="https://cdnjs.cloudflare.com/ajax/libs/crypto-js/4.1.1/crypto-js.min.js"></script>
+ <script src="https://cdnjs.cloudflare.com/ajax/libs/html2pdf.js/0.10.1/html2pdf.bundle.min.js"></script>
 <style>
   @import url('https://fonts.googleapis.com/css2?family=Fredoka+One&family=Kantumruy+Pro:wght@400;600;700;800&display=swap');
 
@@ -491,6 +492,7 @@ function login() {
 function logout() { currentUser = null; showScreen('screen-login'); }
 
 // ══ CHANGE PASSWORD ══
+// ══ CHANGE PASSWORD ══
 function confirmChangePassword() {
   const oldP = document.getElementById('cp-old').value;
   const newP = document.getElementById('cp-new').value;
@@ -498,10 +500,12 @@ function confirmChangePassword() {
 
   if (!oldP || !newP || !confP) return alert("សូមបំពេញចន្លោះទាំងអស់!");
   
-  // ផ្ទៀងផ្ទាត់លេខសម្ងាត់ចាស់ដែលបាន Hash
-  if (hashPassword(oldP) !== currentUser.password) {
+  // កែសម្រួលត្រង់នេះ៖ ផ្ទៀងផ្ទាត់ទាំងលេខសម្ងាត់ធម្មតា និងលេខសម្ងាត់ដែលបាន Hash រួច
+  const hashedOldP = hashPassword(oldP);
+  if (currentUser.password !== oldP && currentUser.password !== hashedOldP) {
     return alert("លេខសម្ងាត់ចាស់របស់អ្នកមិនត្រឹមត្រូវទេ!");
   }
+  
   if (newP !== confP) return alert("ការបញ្ជាក់លេខសម្ងាត់ថ្មីមិនត្រូវគ្នាទេ! សូមពិនិត្យម្តងទៀត។");
   
   const userIndex = appDB.users.findIndex(u => u.username === currentUser.username);
