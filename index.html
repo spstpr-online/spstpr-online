@@ -309,7 +309,6 @@ function hashPassword(plainPassword) {
   // ឆេះ (Hash) ដោយប្រើ SHA-256 ដោយមិនបូកជាមួយ Device ទៀតទេ
   return CryptoJS.SHA256(plainPassword).toString();
 }
-}
 // ══ DATABASE SIMULATION ══
 const defaultAppDB = {
   users: [
