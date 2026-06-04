@@ -305,6 +305,7 @@ function getDeviceId() {
 
 // Function ឆេះ Password បញ្ចូលគ្នាជាមួយ Device
 function hashPassword(plainPassword) {
+ onst deviceId = getDeviceId();
   // ឆេះ (Hash) ដោយប្រើ SHA-256 ដោយមិនបូកជាមួយ Device ទៀតទេ
   return CryptoJS.SHA256(plainPassword).toString();
 }
